@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "418365992462",
+    "project_id": "food-shopping-app-cb290",
+    "storage_bucket": "food-shopping-app-cb290.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418365992462:android:7bbcc91cd53897c1fc165f",
+        "android_client_info": {
+          "package_name": "com.example.food_shopping_ap"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGoFdyg0p7RV8I9uo59uk_IH17z4SAKUo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
