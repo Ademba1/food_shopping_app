@@ -38,4 +38,8 @@ jobs:
         appId: ${{ secrets.1:418365992462:android:7bbcc91cd53897c1fc165f }}
         token: ${{ secrets.32395u3rwf}}
         groups: testers
+<<<<<<< HEAD
         file: build/app/outputs/flutter-apk/app-release.apk
+=======
+        file: build/app/outputs/flutter-apk/app-release.apk
+>>>>>>> c059116726aaf77448d1f93174d5adf994e47c2b
