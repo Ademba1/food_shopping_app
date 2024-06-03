@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:food_shopping_app/api_keys.dart';
 import 'package:http/http.dart' as http;
-import 'package:food_shopping_app/api_keys.dart'; // Import ApiKeys directly if you're using it
-import 'package:food_shopping_app/models/food_item.dart';
+import 'package:isar/isar.dart';
+import 'package:food_shopping_app/models/food_item_schema.dart';
+import 'package:path_provider/path_provider.dart';
 
 class FoodListScreen extends StatefulWidget {
   @override
@@ -11,11 +13,21 @@ class FoodListScreen extends StatefulWidget {
 
 class _FoodListScreenState extends State<FoodListScreen> {
   late Future<List<FoodItem>> _foodItems;
+  late Isar isar;
 
   @override
   void initState() {
     super.initState();
+    _initializeIsar();
     _foodItems = fetchFoodData();
+  }
+
+  Future<void> _initializeIsar() async {
+    final dir = await getApplicationDocumentsDirectory();
+    isar = await Isar.open(
+      [FoodItemSchema],
+      directory: dir.path,
+    );
   }
 
   Future<List<FoodItem>> fetchFoodData() async {
@@ -24,9 +36,16 @@ class _FoodListScreenState extends State<FoodListScreen> {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonResponse = json.decode(response.body);
       List<dynamic> data = jsonResponse['menuItems'];
-      return data.map((item) => FoodItem.fromJson(item)).toList();
+      List<FoodItem> foodItems = data.map((item) => FoodItem.fromJson(item)).toList();
+
+      await isar.writeTxn(() async {
+        await isar.foodItems.clear();
+        await isar.foodItems.putAll(foodItems);
+      });
+
+      return foodItems;
     } else {
-      throw Exception('Failed to load food data');
+      return isar.foodItems.where().findAll();
     }
   }
 
