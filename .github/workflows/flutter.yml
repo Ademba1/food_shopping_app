@@ -35,8 +35,8 @@ jobs:
     - name: Upload to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
       with:
-        appId: ${{ secrets.1:418365992462:android:7bbcc91cd53897c1fc165f }}
-        token: ${{ secrets.32395u3rwf}}
+        appId: ${{ secrets.FIREBASE_APP_ID }}
+        token: ${{ secrets.FIREBASE_TOKEN}}
         groups: testers
 <<<<<<< HEAD
         file: build/app/outputs/flutter-apk/app-release.apk
